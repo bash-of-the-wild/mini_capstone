@@ -1,21 +1,41 @@
 class Api::ProductsController < ApplicationController
-  def all_products
+  def index
     @products = Product.all
-    render 'all_products.json.jbuilder'
+    render 'index.json.jbuilder'
   end
 
-  def first_product
-    @product = Product.first
-    render 'first_product.json.jbuilder'
+  def create
+    @product = Product.new(
+                          name: params[:name],
+                          price: params[:price],
+                          description: params[:description],
+                          image_url: params[:image_url]
+                          )
+    
+    @product.save
+    render 'show.json.jbuilder'
   end
 
-  def second_product
-    @product = Product.find(2)
-    render 'second_product.json.jbuilder'
+  def show
+    @product = Product.find(params[:id])
+    render 'show.json.jbuilder'
   end
 
-  def third_product
-    @product = Product.find(3)
-    render 'third_product.json.jbuilder'
+  def update
+    @product = Product.find(params[:id])
+    
+    @product.name = params[:name] || @product.name
+    @product.price = params[:price] || @product.price
+    @product.decription = params[:decription] || @product.decription
+    @product.image_url = params[:image_url] || @product.image_url
+
+    @product.save
+    render 'show.json.jbuilder'
+  end
+
+  def destroy
+    @product = Product.find(params[:id])
+    @product.destroy
+    render json: {message: "Successfully Destroyed Product"}
   end
 end
