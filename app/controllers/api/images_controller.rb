@@ -1,6 +1,7 @@
 class Api::ImagesController < ApplicationController
   def index
-    
+    @images = Image.all
+    render 'index.json.jbuilder'
   end
 
   def create
@@ -8,19 +9,34 @@ class Api::ImagesController < ApplicationController
                       product_id: params[:product_id],
                       url: params[:image_url]
                       )
-    @image.save
-    render 'show.json.jbuilder'
+    if @image.save
+      render 'show.json.jbuilder'
+    else
+      render json: { errors: @image.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
-  def show
-    
-  end
+    def show
+      @image = Image.find(params[:id])
+      render 'show.json.jbuilder'
+    end
 
-  def update
-    
-  end
+    def update
+      @image = image.find(params[:id])
+      
+      @image.url = params[:url] || @image.url
+      @image.product_id = params[:product_id] || @image.product_id
 
-  def destroy
-    
-  end
+      if @image.save
+        render 'show.json.jbuilder'
+      else
+        render json: { message: @image.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
+    def destroy
+      @image = Image.find(params[:id])
+      @image.destroy
+      render json: {message: "Successfully Destroyed Image"}
+    end
 end
