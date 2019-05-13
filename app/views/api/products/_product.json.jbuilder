@@ -2,7 +2,6 @@ json.id product.id
 json.name product.name
 json.description product.description
 
-json.image_url product.image_url
 json.is_discounted product.is_discounted?
 if product.is_discounted?
   json.sale_message "This is a good deal"
@@ -18,4 +17,10 @@ json.formatted do
   json.total number_to_currency(product.total)
 end
 
-json.supplier_name product.supplier.name
+json.supplier do 
+  json.partial! product.supplier, partial: "api/suppliers/supplier", as: :supplier
+end
+
+json.images do 
+  json.array! product.images, partial: "api/images/image", as: :image
+end
