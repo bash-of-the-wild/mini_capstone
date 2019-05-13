@@ -7,3 +7,17 @@
 #   {name: "Sonic Screwdriver", price: "9.0", image_url: "https://dyn0.media.forbiddenplanet.com/products/28577492.jpg", description: "The Doctor's sciencey magic wand to get out of tight spots. Note: does not work on wood", in_stock: true},
 #   {name: "Yoda sleeping bag", price: "40.0", image_url: "https://staticdelivery.nexusmods.com/mods/1151/images/12353-0-1461721930.png", description: "For real", in_stock: true}
 # ])
+
+
+
+
+
+# products = Product.all
+
+# products.each do |product|
+#   image = Image.new(url: product.image_url, product_id: product.id)
+#   image.save
+# end
+
+
+# Product.all.each { |product| Image.create(url: product.image_url, product_id: product.id) }

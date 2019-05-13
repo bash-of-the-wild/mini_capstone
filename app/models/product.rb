@@ -9,10 +9,13 @@ class Product < ApplicationRecord
   # validates :description, length: { in: 50..200 }
   validates :description, presence: true
 
+  def images
+    Image.where(product_id: self.id)
+  end
 
   def supplier
     # the purpose of this method is to return the Supplier Object associated with this Product
-    Supplier.find_by(id: supplier_id)
+    Supplier.find_by(id: self.supplier_id)
   end
 
   def is_discounted?
