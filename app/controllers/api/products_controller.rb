@@ -1,11 +1,19 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_admin, only: [:create, :update, :destroy]
+
   def index
     search_term = params[:search]
     discount = params[:discount]
     sort_attribute = params[:sort]
     sort_order = params[:sort_order]
+    category_name = params[:category]
 
     @products = Product.all
+
+    if category_name
+      category = Category.find_by(name: category_name)
+      @products = category.products
+    end
 
     if search_term
       @products = @products.where("name iLIKE ?", "%#{search_term}%")
@@ -27,22 +35,18 @@ class Api::ProductsController < ApplicationController
   end
 
   def create
-    if current_user && current_user.admin?
-      @product = Product.new(
-                            name: params[:name],
-                            price: params[:price],
-                            description: params[:description],
-                            supplier_id: params[:supplier_id]
-                            )
-      
-      if @product.save
-        render 'show.json.jbuilder'
-      else
-        render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
-      end
+    @product = Product.new(
+                          name: params[:name],
+                          price: params[:price],
+                          description: params[:description],
+                          supplier_id: params[:supplier_id]
+                          )
+    
+    if @product.save
+      render 'show.json.jbuilder'
     else
-      render json: {}, status: :unauthorized
-    end
+      render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
+    end    
   end
 
   def show

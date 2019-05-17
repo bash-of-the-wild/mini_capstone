@@ -9,9 +9,6 @@
 # ])
 
 
-
-
-
 # products = Product.all
 
 # products.each do |product|
@@ -21,3 +18,48 @@
 
 
 # Product.all.each { |product| Image.create(url: product.image_url, product_id: product.id) }
+
+
+
+Category.create(name: "Cheap")
+Category.create(name: "Wearable")
+Category.create(name: "Damage")
+Category.create(name: "Home Goods")
+
+# Cheap products
+ProductCategory.create(category_id: 1, product_id: 1)
+ProductCategory.create(category_id: 1, product_id: 2)
+ProductCategory.create(category_id: 1, product_id: 6)
+ProductCategory.create(category_id: 1, product_id: 7)
+
+# Wearable products
+ProductCategory.create(category_id: 2, product_id: 3)
+ProductCategory.create(category_id: 2, product_id: 4)
+ProductCategory.create(category_id: 2, product_id: 8)
+
+# Damage products
+ProductCategory.create(category_id: 3, product_id: 3)
+ProductCategory.create(category_id: 3, product_id: 4)
+ProductCategory.create(category_id: 3, product_id: 5)
+ProductCategory.create(category_id: 3, product_id: 8)
+ProductCategory.create(category_id: 3, product_id: 9)
+
+# Home goods
+ProductCategory.create(category_id: 4, product_id: 1)
+ProductCategory.create(category_id: 4, product_id: 5)
+ProductCategory.create(category_id: 4, product_id: 6)
+ProductCategory.create(category_id: 4, product_id: 2)
+ProductCategory.create(category_id: 4, product_id: 7)
+ProductCategory.create(category_id: 4, product_id: 8)
+
+# [
+# [1, "WNYX Mug"], 
+# [2, "Hitchhiker's Guide to the Galaxy"], 
+# [3, "Lightsaber"], 
+# [4, "Space Cowboy Laser Gun"], 
+# [5, "DnD Dice set"], 
+# [6, "Sonic Screwdriver"], 
+# [7, "Yoda sleeping bag"], 
+# [8, "Pikachu"], 
+# [9, "Evil Pikachu"]
+# ]
