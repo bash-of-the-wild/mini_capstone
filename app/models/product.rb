@@ -8,15 +8,15 @@ class Product < ApplicationRecord
   # validates :description, length: { in: 50..200 }
   validates :description, presence: true
 
-  has_many :orders
   has_many :images
   belongs_to :supplier
   has_many :product_categories
-
   has_many :categories, through: :product_categories
-  # def categories
-  #   product_categories.map { |product_category| product_category.category }
-  # end
+
+  has_many :carted_products
+  has_many :orders, through: :carted_products
+  has_many :users, through: :carted_products
+
 
   def is_discounted?
     price < 45
